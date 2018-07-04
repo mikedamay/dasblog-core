@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using DasBlog.Core.Configuration;
 using DasBlog.Managers;
@@ -35,7 +36,8 @@ namespace DasBlog.Web
 			.AddXmlFile(SITESECURITYCONFIG, optional: true, reloadOnChange: true)
 			.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 			.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-			.AddEnvironmentVariables();
+			.AddEnvironmentVariables()
+			;
 
 			Configuration = builder.Build();
 
@@ -113,7 +115,9 @@ namespace DasBlog.Web
 				.AddSingleton<IXmlRpcManager, XmlRpcManager>()
 				.AddSingleton<ISiteManager, SiteManager>()
 				.AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-				.AddSingleton<IPrincipalService, PrincipalService>();
+				.AddSingleton<IPrincipalService, PrincipalService>()
+				.AddSingleton<IFileSystemBinaryManager, FileSystemBinaryManager>()
+				;
 			services
 				.AddAutoMapper(mapperConfig =>
 				{
