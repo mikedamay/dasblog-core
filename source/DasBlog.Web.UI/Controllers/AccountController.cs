@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DasBlog.Core;
 using DasBlog.Web.Models.AccountViewModels;
 using DasBlog.Web.Identity;
 using Microsoft.AspNetCore.Authentication;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DasBlog.Managers.Interfaces;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace DasBlog.Web.Controllers
 {
@@ -20,18 +22,20 @@ namespace DasBlog.Web.Controllers
 		private readonly IMapper mapper;
 		private readonly SignInManager<DasBlogUser> signInManager;
 		private readonly UserManager<DasBlogUser> userManager;
+		private readonly ILoggingManager loggingManager;
 
 		public AccountController(
 			UserManager<DasBlogUser> userManager,
 			SignInManager<DasBlogUser> signInManager,
 			IMapper mapper,
 			ISiteSecurityManager siteSecurityManager,
-			ILoggerFactory loggerFactory)
+			ILoggerFactory loggerFactory
+			, ILoggingManager loggingManager)
 		{
 			this.signInManager = signInManager;
 			this.userManager = userManager;
 			this.userManager.PasswordHasher = new DasBlogPasswordHasher(siteSecurityManager);
-
+			this.loggingManager = loggingManager;
 			this.mapper = mapper;
 			logger = loggerFactory.CreateLogger<AccountController>();
 		}
@@ -59,6 +63,7 @@ namespace DasBlog.Web.Controllers
 
 				if (result.Succeeded)
 				{
+					loggingManager.AddEvent(new EventDataItem(EventCodes.SecuritySuccess, model.Email, Request.GetDisplayUrl()));
 					return LocalRedirect(returnUrl ?? Url.Action("Index", "Home"));
 				}
 

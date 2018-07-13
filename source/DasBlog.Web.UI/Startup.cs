@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Principal;
 using System.Threading;
@@ -110,6 +109,7 @@ namespace DasBlog.Web
 				.AddTransient<IRoleStore<DasBlogRole>, DasBlogUserRoleStore>()
 				.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User)
 				.AddTransient<ISiteRepairer, SiteRepairer>()
+				.AddTransient<ILoggingManager, LoggingManager>()
 				;
 
 			services
