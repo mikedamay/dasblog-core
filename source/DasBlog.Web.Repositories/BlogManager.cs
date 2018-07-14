@@ -98,27 +98,36 @@ namespace DasBlog.Managers
 		public EntrySaveState CreateEntry(Entry entry)
 		{
 			var rtn = InternalSaveEntry(entry, null, null);
+			LogEvent(EventCodes.EntryAdded, entry);
+			return rtn;
+		}
+
+		public EntrySaveState UpdateEntry(Entry entry)
+		{
+			var rtn = InternalSaveEntry(entry, null, null);
+			LogEvent(EventCodes.EntryChanged, entry);
+			return rtn;
+		}
+
+		public void DeleteEntry(string postid)
+		{
+			Entry entry = GetEntryForEdit(postid);
+			_dataService.DeleteEntry(postid, null);
+			LogEvent(EventCodes.EntryDeleted, entry);
+		}
+
+		private void LogEvent(EventCodes eventCode, Entry entry)
+		{
 			_loggingManager.AddEvent(
 				new EventDataItem(
-					EventCodes.EntryAdded, entry.Title,
+					eventCode, entry.Title,
 					MakePermaLink(entry)));
-			return rtn;
 		}
 
 		private string MakePermaLink(Entry entry)
 		{
 			return new Uri(new Uri(_dasBlogSettings.SiteConfiguration.Root)
-			  ,_dasBlogSettings.GetPermaTitle(entry.CompressedTitle)).ToString();
-		}
-
-		public EntrySaveState UpdateEntry(Entry entry)
-		{
-			return InternalSaveEntry(entry, null, null);
-		}
-
-		public void DeleteEntry(string postid)
-		{
-			_dataService.DeleteEntry(postid, null);
+				,_dasBlogSettings.RelativeToRoot(entry.EntryId)).ToString();
 		}
 
 		private EntrySaveState InternalSaveEntry(Entry entry, TrackbackInfoCollection trackbackList, CrosspostInfoCollection crosspostList)
