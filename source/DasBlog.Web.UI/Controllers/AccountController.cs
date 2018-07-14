@@ -66,6 +66,7 @@ namespace DasBlog.Web.Controllers
 					loggingManager.AddEvent(new EventDataItem(EventCodes.SecuritySuccess, model.Email, Request.GetDisplayUrl()));
 					return LocalRedirect(returnUrl ?? Url.Action("Index", "Home"));
 				}
+				loggingManager.AddEvent(new EventDataItem(EventCodes.SecurityFailure, model.Email, Request.GetDisplayUrl()));
 
 				ModelState.AddModelError(string.Empty, "The username and/or password is incorrect. Please try again.");
 			}

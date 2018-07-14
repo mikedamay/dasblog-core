@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using newtelligence.DasBlog.Runtime;
 using DasBlog.Managers.Interfaces;
 using DasBlog.Core;
 using newtelligence.DasBlog.Util;
-using Blogger = DasBlog.Core.XmlRpc.Blogger;
-using MoveableType = DasBlog.Core.XmlRpc.MoveableType;
-using MetaWeblog = DasBlog.Core.XmlRpc.MetaWeblog;
-using DasBlog.Core.Security;
-using DasBlog.Core.Exceptions;
-using System.Security;
-using System.IO;
-using CookComputing.XmlRpc;
-using System.Reflection;
-using System.Xml.Serialization;
-using newtelligence.DasBlog.Web.Services.Rss20;
+using newtelligence.DasBlog.Web.Services.MetaWeblog;
+using EventDataItem = DasBlog.Core.EventDataItem;
+using EventCodes = DasBlog.Core.EventCodes;
 
 namespace DasBlog.Managers
 {
@@ -25,12 +15,14 @@ namespace DasBlog.Managers
 		private ILoggingDataService _loggingDataService;
 		private ISiteSecurityManager _siteSecurity;
 		private readonly IDasBlogSettings _dasBlogSettings;
+		private ILoggingManager _loggingManager;
 
-		public BlogManager(IDasBlogSettings settings)
+		public BlogManager(IDasBlogSettings settings, ILoggingManager loggingManager)
 		{
 			_dasBlogSettings = settings;
 			_loggingDataService = LoggingDataServiceFactory.GetService(_dasBlogSettings.WebRootDirectory + _dasBlogSettings.SiteConfiguration.LogDir);
 			_dataService = BlogDataServiceFactory.GetService(_dasBlogSettings.WebRootDirectory + _dasBlogSettings.SiteConfiguration.ContentDir, _loggingDataService);
+			_loggingManager = loggingManager;
 		}
 
 		public Entry GetBlogPost(string postid)
@@ -105,7 +97,18 @@ namespace DasBlog.Managers
 
 		public EntrySaveState CreateEntry(Entry entry)
 		{
-			return InternalSaveEntry(entry, null, null);
+			var rtn = InternalSaveEntry(entry, null, null);
+			_loggingManager.AddEvent(
+				new EventDataItem(
+					EventCodes.EntryAdded, entry.Title,
+					MakePermaLink(entry)));
+			return rtn;
+		}
+
+		private string MakePermaLink(Entry entry)
+		{
+			return new Uri(new Uri(_dasBlogSettings.SiteConfiguration.Root)
+			  ,_dasBlogSettings.GetPermaTitle(entry.CompressedTitle)).ToString();
 		}
 
 		public EntrySaveState UpdateEntry(Entry entry)
