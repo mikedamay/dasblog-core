@@ -1,4 +1,4 @@
-#region Copyright (c) 2003, newtelligence AG. All rights reserved.
+﻿#region Copyright (c) 2003, newtelligence AG. All rights reserved.
 /*
 // Copyright (c) 2003, newtelligence AG. (http://www.newtelligence.com)
 // Original BlogX Source Code: Copyright (c) 2003, Chris Anderson (http://simplegeek.com)
@@ -485,7 +485,10 @@ namespace newtelligence.DasBlog.Runtime
 
 			try
 			{
-				using (Impersonation.Impersonate())
+				// dotnet core does not support this method
+				// user.Impersonate() is what's reqquired which
+				// means dragging the user down here
+				//using (Impersonation.Impersonate())
 				{
 					// Archive last day's log files.
 					if (!File.Exists(String.Format("{0}.zip", GetLogPath(logItem.EventTimeUtc, LogCategory.Event))))
