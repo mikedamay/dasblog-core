@@ -1,4 +1,5 @@
-﻿
+﻿@model System.Collections.Generic.List<DasBlog.Core.EventDataDisplayItem>
+
 @{
     ViewBag.Title = "Activity Report";
     Layout = "_Layout";
@@ -24,17 +25,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        2018-07-14 10:30:35 UTC
-                    </td>
-                    <td>
-                        5001
-                    </td>
-                    <td>
-                        Great Nees
-                    </td>
-                </tr>
+                @foreach (var eddi in Model)
+                {
+                    <tr>
+                        <td>
+                            @eddi.Date
+                        </td>
+                        <td>
+                            @eddi.EventCode
+                        </td>
+                        <td>
+                            @Html.Raw(eddi.HtmlMessage)
+                        </td>
+                    </tr>
+                }
                 </tbody>
             </table>
         </div>

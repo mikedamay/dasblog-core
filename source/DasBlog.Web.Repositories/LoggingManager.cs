@@ -1,9 +1,11 @@
-﻿using System.IO;
-using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using DasBlog.Core;
 using DasBlog.Managers.Interfaces;
 using newtelligence.DasBlog.Runtime;
 using EventDataItem = DasBlog.Core.EventDataItem;
+using EventCodes = DasBlog.Core.EventCodes;
 
 namespace DasBlog.Managers
 {
@@ -22,6 +24,20 @@ namespace DasBlog.Managers
 			  (newtelligence.DasBlog.Runtime.EventCodes)(int)eventDataItem.EventCode
 			  ,eventDataItem.UserMessage
 			  ,eventDataItem.LoalUrl));
+		}
+
+		public List<EventDataDisplayItem> GetEventsForDay(DateTime date)
+		{
+			var eventDataDisplayItems = new List<EventDataDisplayItem>();
+			var events = _service.GetEventsForDay(DateTime.UtcNow);
+			foreach (var edi in events)
+			{
+				eventDataDisplayItems.Add(new EventDataDisplayItem(
+				  (EventCodes)edi.EventCode
+				  ,edi.HtmlMessage, edi.EventTimeUtc));
+			}
+
+			return eventDataDisplayItems;
 		}
 	}
 }
