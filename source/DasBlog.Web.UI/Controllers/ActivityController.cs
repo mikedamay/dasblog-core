@@ -17,16 +17,18 @@ namespace DasBlog.Web.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult List()
+		public IActionResult ActivityList()
 		{
 			return EventsByDate(DateTime.UtcNow);
 		}
-		[HttpGet]
+		[HttpGet(Name="/Activity/ActivityList/date")]
 		public IActionResult EventsByDate(DateTime date)
 		{
 			var events = loggingManager.GetEventsForDay(date);
 			ViewBag.Date = date.ToString("yyyy-MM-dd");
-			return View("List", events);
+			ViewBag.NextDay = (date + new TimeSpan(1, 0, 0, 0)).ToString("yyyy-MM-dd");
+			ViewBag.Today = DateTime.Today.ToString("yyyy-MM-dd");
+			return View("ActivityList", events);
 			
 		}
 	}
