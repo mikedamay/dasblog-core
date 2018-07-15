@@ -121,13 +121,20 @@ namespace DasBlog.Managers
 			_loggingManager.AddEvent(
 				new EventDataItem(
 					eventCode, entry.Title,
-					MakePermaLink(entry)));
+					MakePermaLinkFromCompressedTitle(entry)));
 		}
 
 		private string MakePermaLink(Entry entry)
 		{
 			return new Uri(new Uri(_dasBlogSettings.SiteConfiguration.Root)
 				,_dasBlogSettings.RelativeToRoot(entry.EntryId)).ToString();
+		}
+
+		private string MakePermaLinkFromCompressedTitle(Entry entry)
+		{
+			return new Uri(new Uri(_dasBlogSettings.SiteConfiguration.Root)
+				,_dasBlogSettings.RelativeToRoot(
+				_dasBlogSettings.GetPermaTitle(entry.CompressedTitle))).ToString();
 		}
 
 		private EntrySaveState InternalSaveEntry(Entry entry, TrackbackInfoCollection trackbackList, CrosspostInfoCollection crosspostList)
