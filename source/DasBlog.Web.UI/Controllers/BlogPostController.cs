@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DasBlog.Core;
+using DasBlog.Managers;
 using DasBlog.Managers.Interfaces;
 using DasBlog.Web.Common;
 using DasBlog.Web.Models.BlogViewModels;
@@ -16,6 +17,8 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using newtelligence.DasBlog.Runtime;
 using static DasBlog.Web.Common.Utils;
+using EventCodes = DasBlog.Core.EventCodes;
+using EventDataItem = DasBlog.Core.EventDataItem;
 
 namespace DasBlog.Web.Controllers
 {
@@ -28,10 +31,11 @@ namespace DasBlog.Web.Controllers
 		private readonly IDasBlogSettings _dasBlogSettings;
 		private readonly IMapper _mapper;
 		private readonly IFileSystemBinaryManager _binaryManager;
+		private readonly ILoggingManager _loggingManager;
 
 		public BlogPostController(IBlogManager blogManager, IHttpContextAccessor httpContextAccessor,
 		  IDasBlogSettings settings, IMapper mapper, ICategoryManager categoryManager
-		  ,IFileSystemBinaryManager binaryManager) : base(settings)
+		  ,IFileSystemBinaryManager binaryManager, ILoggingManager loggingManager) : base(settings)
 		{
 			_blogManager = blogManager;
 			_categoryManager = categoryManager;
@@ -39,6 +43,7 @@ namespace DasBlog.Web.Controllers
 			_dasBlogSettings = settings;
 			_mapper = mapper;
 			_binaryManager = binaryManager;
+			_loggingManager = loggingManager;
 		}
 
 		[AllowAnonymous]
@@ -191,7 +196,6 @@ namespace DasBlog.Web.Controllers
 				entry.Language = post.Language;
 				entry.Latitude = null;
 				entry.Longitude = null;
-
 				EntrySaveState sts = _blogManager.CreateEntry(entry);
 				if (sts != EntrySaveState.Added)
 				{
@@ -201,6 +205,8 @@ namespace DasBlog.Web.Controllers
 			}
 			catch (Exception e)
 			{
+				_loggingManager.AddEvent(new EventDataItem(EventCodes.Error
+				  ,$"Failed to create blog post.  Exception: {e}", string.Empty));
 				RedirectToAction("Error");
 			}
 
