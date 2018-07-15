@@ -29,7 +29,7 @@ namespace DasBlog.Managers
 		public List<EventDataDisplayItem> GetEventsForDay(DateTime date)
 		{
 			var eventDataDisplayItems = new List<EventDataDisplayItem>();
-			var events = _service.GetEventsForDay(DateTime.UtcNow);
+			var events = _service.GetEventsForDay(date);
 			foreach (var edi in events)
 			{
 				eventDataDisplayItems.Add(new EventDataDisplayItem(

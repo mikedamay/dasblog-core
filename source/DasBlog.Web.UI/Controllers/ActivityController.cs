@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using DasBlog.Managers.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,19 @@ namespace DasBlog.Web.Controllers
 		{
 			this.loggingManager = loggingManager;
 		}
-		// GET
+
+		[HttpGet]
 		public IActionResult List()
 		{
-			var events = loggingManager.GetEventsForDay(DateTime.UtcNow);
-			return View(events);
+			return EventsByDate(DateTime.UtcNow);
+		}
+		[HttpGet]
+		public IActionResult EventsByDate(DateTime date)
+		{
+			var events = loggingManager.GetEventsForDay(date);
+			ViewBag.Date = date.ToString("yyyy-MM-dd");
+			return View("List", events);
+			
 		}
 	}
 }
