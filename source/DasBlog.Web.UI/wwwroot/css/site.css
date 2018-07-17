@@ -90,6 +90,12 @@ ul {
             display: block;
             padding-left: 30px;
         }
+/* this is used by the NicEdit conrol */        
+ .nicEdit-main {
+     overflow: auto !important;
+     height: 5.5em;
+ }
+        
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
