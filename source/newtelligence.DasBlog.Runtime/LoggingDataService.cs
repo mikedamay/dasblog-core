@@ -1,4 +1,4 @@
-#region Copyright (c) 2003, newtelligence AG. All rights reserved.
+﻿#region Copyright (c) 2003, newtelligence AG. All rights reserved.
 /*
 // Copyright (c) 2003, newtelligence AG. (http://www.newtelligence.com)
 // Original BlogX Source Code: Copyright (c) 2003, Chris Anderson (http://simplegeek.com)
@@ -43,7 +43,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using newtelligence.DasBlog.Runtime.Proxies;
+//using newtelligence.DasBlog.Runtime.Proxies;
 using newtelligence.DasBlog.Util.Zip;
 
 namespace newtelligence.DasBlog.Runtime
@@ -442,7 +442,7 @@ namespace newtelligence.DasBlog.Runtime
 
 			try
 			{
-				using (Impersonation.Impersonate())
+				//using (Impersonation.Impersonate())
 				{
 					lockObject.AcquireWriterLock(TimeSpan.FromMilliseconds(250));
 
@@ -485,7 +485,7 @@ namespace newtelligence.DasBlog.Runtime
 
 			try
 			{
-				using (Impersonation.Impersonate())
+				//using (Impersonation.Impersonate())
 				{
 					// Archive last day's log files.
 					if (!File.Exists(String.Format("{0}.zip", GetLogPath(logItem.EventTimeUtc, LogCategory.Event))))

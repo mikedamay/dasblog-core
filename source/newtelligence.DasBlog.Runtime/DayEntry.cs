@@ -1,4 +1,4 @@
-#region Copyright (c) 2003, newtelligence AG. All rights reserved.
+﻿#region Copyright (c) 2003, newtelligence AG. All rights reserved.
 /*
 // Copyright (c) 2003, newtelligence AG. (http://www.newtelligence.com)
 // Original BlogX Source Code: Copyright (c) 2003, Chris Anderson (http://simplegeek.com)
@@ -45,7 +45,7 @@ using System.Globalization;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using newtelligence.DasBlog.Runtime.Proxies;
+//using newtelligence.DasBlog.Runtime.Proxies;
 using newtelligence.DasBlog.Util;
 using System.Security.Principal;
 
