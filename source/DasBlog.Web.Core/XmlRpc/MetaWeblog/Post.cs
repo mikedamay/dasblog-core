@@ -9,22 +9,22 @@ namespace DasBlog.Core.XmlRpc.MetaWeblog
     public struct Post
     {
         /// <summary>Date Created in ISO 8601 format</summary>
-        [XmlRpcMissingMapping(MappingAction.Error)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Error)]
         [XmlRpcMember(Description = "Required when posting.")]
         public DateTime dateCreated;
 
         /// <summary></summary>
-        [XmlRpcMissingMapping(MappingAction.Error)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Error)]
         [XmlRpcMember(Description = "Required when posting.")]
         public string description;
 
         /// <summary></summary>
-        [XmlRpcMissingMapping(MappingAction.Error)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Error)]
         [XmlRpcMember(Description = "Required when posting.")]
         public string title;
 
         [XmlRpcMember]
-        [XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string[] categories;
 
         /*[XmlRpcMember][XmlRpcMissingMapping(MappingAction.Ignore)]
@@ -32,12 +32,12 @@ namespace DasBlog.Core.XmlRpc.MetaWeblog
 
         /// <summary></summary>
         [XmlRpcMember]
-        [XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string link;
 
         /// <summary></summary>
         [XmlRpcMember]
-        [XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string permalink;
 
         [XmlRpcMember(
@@ -45,7 +45,7 @@ namespace DasBlog.Core.XmlRpc.MetaWeblog
           + "be either string or integer. "
           + "Use Convert.ToInt32(postid) to treat as integer or "
           + "Convert.ToString(postid) to treat as string")]
-        [XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string postid;
 
 
@@ -57,31 +57,31 @@ namespace DasBlog.Core.XmlRpc.MetaWeblog
         ///  1 - Open   - Allow comments
         ///  2 - Closed - No comments allowed
         /// </summary>
-        [XmlRpcMember, XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMember, XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string mt_allow_comments;
 
         /// <summary>Currently unused.  DasBlog doesn't allow trackbacks to be turned off on a post by post basis.</summary>
-        [XmlRpcMember, XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMember, XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public int mt_allow_pings;
 
         /// <summary>Currently unused.</summary>
-        [XmlRpcMember, XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMember, XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string mt_convert_breaks;
 
         /// <summary>Currently unused.  DasBlog only allows an excerpt to be specified.</summary>
-        [XmlRpcMember, XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMember, XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string mt_text_more;
 
         /// <summary>The short description for the post that is used in some feeds and can be turned on for the main page.</summary>
-        [XmlRpcMember, XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMember, XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string mt_excerpt;
 
         /// <summary>Currently unused.  DasBlog doesn't allow keywords to be specified, only categories.</summary>
-        [XmlRpcMember, XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMember, XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string mt_keywords;
 
         /// <summary>Array of trackback URL's to ping.</summary>
-        [XmlRpcMember, XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMember, XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string[] mt_tb_ping_urls;
 
         /// <summary>

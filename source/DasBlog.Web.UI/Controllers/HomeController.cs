@@ -16,17 +16,17 @@ namespace DasBlog.Web.Controllers
 	public class HomeController : DasBlogBaseController
 	{
 		private readonly IBlogManager _blogManager;
-		private readonly IXmlRpcManager _xmlRpcManager;
+		//private readonly IXmlRpcManager _xmlRpcManager;
 		private readonly IDasBlogSettings _dasBlogSettings;
 		private readonly IMapper _mapper;
 		private readonly ILogger<HomeController> _logger;
 		
 		public HomeController(IBlogManager blogManager
-		  , IDasBlogSettings settings, IXmlRpcManager rpcManager, IMapper mapper
+		  , IDasBlogSettings settings/*, IXmlRpcManager rpcManager */, IMapper mapper
 		  , ILogger<HomeController> logger) : base(settings)
 		{
 			_blogManager = blogManager;
-			_xmlRpcManager = rpcManager;
+			//_xmlRpcManager = rpcManager;
 			_dasBlogSettings = settings;
 			_mapper = mapper;
 			_logger = logger;
@@ -79,14 +79,14 @@ namespace DasBlog.Web.Controllers
 			return NoContent();
 		}
 
-		[Produces("text/xml")]
-		[HttpPost("blogger")]
-		public IActionResult Blogger([FromBody] string xmlrpcpost)
-		{
-			string blogger = _xmlRpcManager.Invoke(HttpContext.Request.Body);
+		//[Produces("text/xml")]
+		//[HttpPost("blogger")]
+		//public IActionResult Blogger([FromBody] string xmlrpcpost)
+		//{
+		//	string blogger = _xmlRpcManager.Invoke(HttpContext.Request.Body);
 
-			return Content(blogger);
-		}
+		//	return Content(blogger);
+		//}
 
 		public IActionResult About()
 		{
