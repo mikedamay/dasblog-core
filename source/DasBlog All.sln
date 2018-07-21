@@ -44,6 +44,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasBlog.SmokeTest", "DasBlog.SmokeTest\DasBlog.SmokeTest.csproj", "{03F7D2D4-3FE9-467E-A9BE-E9A6322DFBF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasBlog.FunctionalTests", "DasBlog.FunctionalTests\DasBlog.FunctionalTests.csproj", "{2AAA4696-6822-4389-AD50-37FECA283849}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasBlog.Runtime.netstd", "DasBlog.Runtime.netstd\DasBlog.Runtime.netstd.csproj", "{28809B18-B54C-476F-8CBC-CA3C0D4DBBBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

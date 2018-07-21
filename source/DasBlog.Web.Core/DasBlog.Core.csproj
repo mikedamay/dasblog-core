@@ -4,8 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\newtelligence.DasBlog.Runtime\newtelligence.DasBlog.Runtime.csproj" />
-    <ProjectReference Include="..\newtelligence.DasBlog.Web.Core\newtelligence.DasBlog.Web.Core.csproj" />
-    <ProjectReference Include="..\newtelligence.DasBlog.Web.Services\newtelligence.DasBlog.Web.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Settings\" />
@@ -14,5 +12,13 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
     <PackageReference Include="NetEscapades.Extensions.Logging.RollingFile" Version="1.0.0" />
     <PackageReference Include="xmlrpcnet" Version="2.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ValidTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ValidTagCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

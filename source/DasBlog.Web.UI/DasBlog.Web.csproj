@@ -9,6 +9,9 @@
     <Product>DasBlog Core</Product>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Controllers\FeedController.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="config\metaConfig.xml" />
     <Content Include="content\2018-02-24.dayentry.xml" />
     <Content Include="content\2018-02-24.dayfeedback.xml" />
@@ -28,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="config\site.config" />
+    <None Include="Controllers\FeedController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DasBlog.Web.Core\DasBlog.Core.csproj" />
