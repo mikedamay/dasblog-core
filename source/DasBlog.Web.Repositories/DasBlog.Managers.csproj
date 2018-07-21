@@ -15,7 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DasBlog.Web.Core\DasBlog.Core.csproj" />
     <ProjectReference Include="..\newtelligence.DasBlog.Runtime\newtelligence.DasBlog.Runtime.csproj" />
-    <ProjectReference Include="..\newtelligence.DasBlog.Util\newtelligence.DasBlog.Util.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NetEscapades.Extensions.Logging.RollingFile" Version="1.0.0" />
