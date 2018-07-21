@@ -29,7 +29,7 @@ namespace DasBlog.Web
 {
 	public class Startup
 	{
-		public const string SITESECURITYCONFIG = @"Config\siteSecurity.config";
+		public const string SITESECURITYCONFIG = @"Config/siteSecurity.config";
 		private IHostingEnvironment _hostingEnvironment;
 		private string _binariesPath;
 
@@ -186,7 +186,7 @@ namespace DasBlog.Web
 			});
 
 			RewriteOptions options = new RewriteOptions()
-				 .AddIISUrlRewrite(env.ContentRootFileProvider, @"Config\IISUrlRewrite.xml");
+				 .AddIISUrlRewrite(env.ContentRootFileProvider, @"Config/IISUrlRewrite.xml");
 
 			app.UseRewriter(options);
 		}
