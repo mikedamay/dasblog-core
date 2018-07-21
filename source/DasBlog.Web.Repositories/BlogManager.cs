@@ -47,12 +47,13 @@ namespace DasBlog.Managers
 		public EntryCollection GetFrontPagePosts(string acceptLanguageHeader)
 		{
 			DateTime fpDayUtc;
-			TimeZone tz;
+			//TimeZone tz;
 
 			//Need to insert the Request.Headers["Accept-Language"];
 			string languageFilter = acceptLanguageHeader;
 			fpDayUtc = DateTime.UtcNow.AddDays(dasBlogSettings.SiteConfiguration.ContentLookaheadDays);
 
+<<<<<<< HEAD
 			if (dasBlogSettings.SiteConfiguration.AdjustDisplayTimeZone)
 			{
 				tz = WindowsTimeZone.TimeZones.GetByZoneIndex(dasBlogSettings.SiteConfiguration.DisplayTimeZoneIndex);
@@ -61,6 +62,16 @@ namespace DasBlog.Managers
 			{
 				tz = new UTCTimeZone();
 			}
+=======
+			//if (_dasBlogSettings.SiteConfiguration.AdjustDisplayTimeZone)
+			//{
+			//	tz = WindowsTimeZone.TimeZones.GetByZoneIndex(_dasBlogSettings.SiteConfiguration.DisplayTimeZoneIndex);
+			//}
+			//else
+			//{
+			//	tz = new UTCTimeZone();
+			//}
+>>>>>>> running ok after removing newt...DasBlog.Web.Util with DasBlogSettings.GetFonfiguredTimeZone hacked
 
 			return dataService.GetEntriesForDay(fpDayUtc, TimeZone.CurrentTimeZone,
 								languageFilter,

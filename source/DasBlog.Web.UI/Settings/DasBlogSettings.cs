@@ -7,7 +7,7 @@ using DasBlog.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
-using newtelligence.DasBlog.Util;
+//using newtelligence.DasBlog.Util;
 
 namespace DasBlog.Web.Settings
 {
@@ -132,7 +132,8 @@ namespace DasBlog.Web.Settings
 		public TimeZone GetConfiguredTimeZone()
 		{
 			// Need to figure out how to handle time...
-			return new UTCTimeZone();
+			//return new UTCTimeZone();
+			return TimeZone.CurrentTimeZone;
 
 			//if (SiteConfiguration.AdjustDisplayTimeZone)
 			//{
