@@ -10,7 +10,6 @@ namespace CookComputing.XmlRpc
 		public string Description {get; set;}
 		public XmlRpcMissingMappingAttribute(MappingAction action)
 		{
-
 		}
     }
 

@@ -227,3 +227,4 @@ source/DasBlog.Web.UI/logs
 
 # Rider iDE
 .idea/
+/source/DasBlog.Web.UI/logs
