@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DasBlog.Core.XmlRpc.MetaWeblog
 {
-    [XmlRpcMissingMapping(MappingAction.Ignore)]
+    [XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
     public struct Source
     {
         public string name;

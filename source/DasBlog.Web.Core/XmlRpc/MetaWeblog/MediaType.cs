@@ -6,7 +6,7 @@ namespace DasBlog.Core.XmlRpc.MetaWeblog
     {
         public string name;
 
-        [XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string type;
 
         public byte[] bits;

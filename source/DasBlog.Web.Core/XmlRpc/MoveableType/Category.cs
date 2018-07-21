@@ -9,9 +9,9 @@ namespace DasBlog.Core.XmlRpc.MoveableType
     {
         public string categoryId;
 
-        [XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public string categoryName;
-        [XmlRpcMissingMapping(MappingAction.Ignore)]
+        [XmlRpcMissingMappingAttribute(MappingAction.Ignore)]
         public bool isPrimary;
     }
 }
