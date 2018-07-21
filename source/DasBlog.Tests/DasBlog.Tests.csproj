@@ -4,16 +4,16 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Config\metaConfig.xml" />
-    <None Remove="Config\site.config" />
-    <None Remove="Config\siteSecurity.config" />
+    <None Remove="Config/metaConfig.xml" />
+    <None Remove="Config/site.config" />
+    <None Remove="Config/siteSecurity.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\metaConfig.xml" />
-    <Content Include="Config\site.config">
+    <Content Include="Config/metaConfig.xml" />
+    <Content Include="Config/site.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Config\siteSecurity.config">
+    <Content Include="Config/siteSecurity.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
