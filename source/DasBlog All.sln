@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "newtelligence", "newtelligence", "{4383190A-97AC-435E-9FBB-E203AC4497ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasBlog.Runtime.netstd", "DasBlog.Runtime.netstd\DasBlog.Runtime.netstd.csproj", "{28809B18-B54C-476F-8CBC-CA3C0D4DBBBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug - All|Any CPU = Debug - All|Any CPU
@@ -134,6 +136,12 @@ Global
 		{C439145F-28BF-4451-98CD-7FC404681426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C439145F-28BF-4451-98CD-7FC404681426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C439145F-28BF-4451-98CD-7FC404681426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28809B18-B54C-476F-8CBC-CA3C0D4DBBBE}.Debug - All|Any CPU.ActiveCfg = Debug|Any CPU
+		{28809B18-B54C-476F-8CBC-CA3C0D4DBBBE}.Debug - All|Any CPU.Build.0 = Debug|Any CPU
+		{28809B18-B54C-476F-8CBC-CA3C0D4DBBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28809B18-B54C-476F-8CBC-CA3C0D4DBBBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28809B18-B54C-476F-8CBC-CA3C0D4DBBBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28809B18-B54C-476F-8CBC-CA3C0D4DBBBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

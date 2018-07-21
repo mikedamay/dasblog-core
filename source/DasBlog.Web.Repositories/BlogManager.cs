@@ -6,6 +6,17 @@ using newtelligence.DasBlog.Util;
 using EventDataItem = DasBlog.Core.EventDataItem;
 using EventCodes = DasBlog.Core.EventCodes;
 using DasBlog.Core.Extensions;
+using Blogger = DasBlog.Core.XmlRpc.Blogger;
+using MoveableType = DasBlog.Core.XmlRpc.MoveableType;
+using MetaWeblog = DasBlog.Core.XmlRpc.MetaWeblog;
+using DasBlog.Core.Security;
+using DasBlog.Core.Exceptions;
+using System.Security;
+using System.IO;
+using CookComputing.XmlRpc;
+using System.Reflection;
+using System.Xml.Serialization;
+//using newtelligence.DasBlog.Web.Services.Rss20;
 
 namespace DasBlog.Managers
 {
@@ -190,7 +201,7 @@ namespace DasBlog.Managers
 
 			return rtn;
 		}
-
+/*
 		private void BreakCache(string[] categories)
 		{
 			newtelligence.DasBlog.Web.Core.DataCache cache = newtelligence.DasBlog.Web.Core.CacheFactory.GetCache();
@@ -205,7 +216,7 @@ namespace DasBlog.Managers
 				cache.Remove(CacheKey);
 			}
 		}
-
+*/
 		public CommentSaveState AddComment(string postid, Comment comment)
 		{
 			CommentSaveState est = CommentSaveState.Failed;
