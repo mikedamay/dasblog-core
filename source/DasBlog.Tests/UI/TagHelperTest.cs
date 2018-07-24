@@ -32,7 +32,7 @@ namespace DasBlog.Tests.UI
 
 			helper.Process(context, output);
 
-			Assert.Same("b", output.TagName);
+			Assert.Same("a", output.TagName);
 			Assert.Same("href", output.Attributes[0].Name);
 			Assert.Contains(blogPost, output.Attributes[0].Value.ToString());
 		}
