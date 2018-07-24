@@ -69,7 +69,7 @@ namespace UnitTests.Subtext.Framework.Util
 			string formattedPstDate = utcDate.ToString("MM/dd/yyyy HH:mm", culture);
 			Assert.AreEqual("10/01/2006 19:30", formattedPstDate);
 		}
-
+		[Ignore]
 		[Test]
 		public void GetDaylightChangesReturnsProperDaylightSavingsInfo()
 		{

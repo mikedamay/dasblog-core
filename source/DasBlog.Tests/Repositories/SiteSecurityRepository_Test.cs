@@ -17,25 +17,25 @@ namespace DasBlog.Tests.Repositories
         /// <summary>
         /// All test methods should follow this naming pattern
         /// </summary>
-        [Fact]
+        [Fact(Skip = "not implemented")]
         public void UnitOfWork_StateUnderTest_ExpectedBehavior()
         {
 
         }
 
-        [Fact]
+	    [Fact(Skip = "not implemented")]
         public void ValidateContributor_RoleAsAdmin_ReturnTrue()
         {
 
         }
 
-        [Fact]
+	    [Fact(Skip = "not implemented")]
         public void ValidateContributor_RoleAsContributor_ReturnTrue()
         {
 
         }
 
-        [Fact]
+	    [Fact(Skip = "not implemented")]
         public void ValidateContributor_InvalidRole_ReturnFalse()
         {
 
