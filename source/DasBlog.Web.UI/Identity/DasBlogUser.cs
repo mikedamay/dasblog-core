@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DasBlog.Web.Identity
 {
-	public class DasBlogUser : IdentityUser<User>
+	public class DasBlogUser : IdentityUser
 	{
 		public string DisplayName { get; set; }
 

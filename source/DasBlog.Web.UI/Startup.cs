@@ -110,7 +110,7 @@ namespace DasBlog.Web
 			services.AddSession(options =>
 			{
 				// Set a short timeout for easy testing.
-				options.IdleTimeout = TimeSpan.FromSeconds(1000);
+				options.IdleTimeout = TimeSpan.FromSeconds(10);
 			});
 
 			services

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DasBlog.Web.Identity
 {
-	public class DasBlogUserStore : IUserStore<DasBlogUser>, IUserPasswordStore<DasBlogUser>, IUserEmailStore<DasBlogUser>, IUserClaimStore<DasBlogUser>
+	public class DasBlogUserStore : IUserStore<DasBlogUser> , IUserPasswordStore<DasBlogUser>, IUserEmailStore<DasBlogUser>, IUserClaimStore<DasBlogUser>
 	{
 		private readonly IDasBlogSettings _dasBlogSettings;
 		private readonly IMapper _mapper;
