@@ -20,7 +20,108 @@
             vertical-align: middle;
             float: none;
         }        
-    </style>
+ /*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+
+body {
+  overflow-x: hidden;
+}
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  /* background: #000; */
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+  margin-left: 250px;
+}
+
+#wrapper.toggled {
+  position: absolute;
+  margin-right: -250px;
+}
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  /* color: #fff; */
+  /* background: rgba(255, 255, 255, 0.2); */
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav>.sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+  /* color: #fff; */
+  background: none;
+}
+
+   </style>
 </head>
 <body>
 
@@ -29,20 +130,32 @@
 }
 @await Html.PartialAsync("_NavBar")
 
-<nav class="navbar navbar-default workaround-users-3" role="navigation">
-   
+@* <nav class="navbar bd-sidenav workaround-users-3 workaround-users-1" role="navigation"> *@
+    @* nav and navbar give similar results except navvar gives a decent little margin *@
+    @* navbar-defuult not required *@
+    @*
+    gettting rid of this positioned the user list on the left ok
     <div class="navbar-header">
         <a class="navbar-brand"  href="/">My Users</a>
     </div>
-    
-    <div class="navbar-default sidebar" role="navigation">
-        @await Component.InvokeAsync("UserList")
+    *@
+
+    <div id="wrapper" class="toggled" style="margin-top: 60px">
+        <div id="sidebar-wrapper">
+            <div class="sidebar-nav workaround-users-1" role="navigation">
+                @* it's better without navbar-default *@
+                @await Component.InvokeAsync("UserList")
+            </div>
+            
+        </div>
     </div>
 
-</nav>
+@* </nav> *@
 
-<div id="page-wrapper">
-    @RenderBody()
+<div id="page-content-wrapper" role="main" style="margin-top: 60px">
+    <div class="container-fluid">
+        @RenderBody()      
+    </div>
 </div>
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>
