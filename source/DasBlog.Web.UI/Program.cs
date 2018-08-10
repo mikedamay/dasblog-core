@@ -18,8 +18,8 @@ namespace DasBlog.Web.UI
 	            {
 		            var env = hostingContext.HostingEnvironment;
 			        configBuilder.SetBasePath(env.ContentRootPath)
-			            .AddXmlFile(@"Config\site.config", optional: true, reloadOnChange: true)
-			            .AddXmlFile(@"Config\metaConfig.xml", optional: true, reloadOnChange: true)
+			            .AddXmlFile(@"Config/site.config", optional: true, reloadOnChange: true)
+			            .AddXmlFile(@"Config/metaConfig.xml", optional: true, reloadOnChange: true)
 			            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 			            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
 			            .AddEnvironmentVariables()
