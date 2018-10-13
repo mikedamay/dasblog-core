@@ -291,17 +291,13 @@ namespace DasBlog.Managers
 				if (entry.Categories == null)
 					entry.Categories = "";
 
-				rtn = dataService.SaveEntry(entry, 
-					(Pass<PingServiceCollection>(() =>dasBlogSettings.SiteConfiguration.PingServices).Count > 0) ?
-						new WeblogUpdatePingInfo(Pass(() =>dasBlogSettings.SiteConfiguration.Title), Pass(() =>dasBlogSettings.GetBaseUrl()), Pass(() =>dasBlogSettings.GetBaseUrl()), Pass(() =>dasBlogSettings.RsdUrl), Pass<PingServiceCollection>(() => dasBlogSettings.SiteConfiguration.PingServices)) : null,
-					(entry.IsPublic) ?
-						trackbackList : null,
-					Pass(() =>dasBlogSettings.SiteConfiguration.EnableAutoPingback) && entry.IsPublic ?
-						new PingbackInfo(
-							Pass(() =>dasBlogSettings.GetPermaLinkUrl(entry.EntryId)),
-							entry.Title,
-							entry.Description,
-							Pass(() =>dasBlogSettings.SiteConfiguration.Title)) : null,
+				rtn = dataService.SaveEntry(
+					entry, 
+					MaybeBuildWeblogPingInfo(),
+					entry.IsPublic
+						? trackbackList 
+						: null,
+					MaybeBuildPingbackInfo(entry),
 					crosspostList);
 
 				//TODO: SendEmail(entry, siteConfig, logService);
@@ -323,6 +319,38 @@ namespace DasBlog.Managers
 			// TODO: BreakCache(entry.GetSplitCategories());
 
 			return rtn;
+		}
+
+		/// <summary>
+		/// not sure what this is about but it is legacy
+		/// TODO: reconsider when strategy for handling pingback in legacy site.config is decided.
+		/// </summary>
+		private WeblogUpdatePingInfo MaybeBuildWeblogPingInfo()
+		{
+			return Pass<PingServiceCollection>(() =>dasBlogSettings.SiteConfiguration.PingServices).Count > 0
+				? new WeblogUpdatePingInfo(
+					Pass(() =>dasBlogSettings.SiteConfiguration.Title), 
+					Pass(() =>dasBlogSettings.GetBaseUrl()), 
+					Pass(() =>dasBlogSettings.GetBaseUrl()), 
+					Pass(() =>dasBlogSettings.RsdUrl), 
+					Pass<PingServiceCollection>(() => dasBlogSettings.SiteConfiguration.PingServices)
+				) 
+				: null;
+		}
+
+		/// <summary>
+		/// not sure what this is about but it is legacy
+		/// TODO: reconsider when strategy for handling pingback in legacy site.config is decided.
+		/// </summary>
+		private PingbackInfo MaybeBuildPingbackInfo(Entry entry)
+		{
+			return Pass(() =>dasBlogSettings.SiteConfiguration.EnableAutoPingback) && entry.IsPublic
+				? new PingbackInfo(
+					Pass(() =>dasBlogSettings.GetPermaLinkUrl(entry.EntryId)),
+					entry.Title,
+					entry.Description,
+					Pass(() =>dasBlogSettings.SiteConfiguration.Title)) 
+				: null;
 		}
 
 		private void BreakCache(string[] categories)
