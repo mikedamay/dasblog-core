@@ -22,11 +22,13 @@ git stash push -m "functional-test environment state %3" --all -- %2
 if errorlevel 1 goto error_exit2
 rem # "drop" will cause the hash of the stash to be echoed to stdout where the caller can grab it and tell user
 git stash drop stash@{0}
+echo output_complete
 set exitcode=%errorlevel%
 ping 192.168.0.255 -n 1 -w %1 >NUL
 exit %exitcode%
 :error_exit
 echo one or more command line arguments are missing 2>&1
 :error_exit2
+echo errors_complete 2>&1
 ping 192.168.0.255 -n 1 -w %1 >NUL
 exit 1

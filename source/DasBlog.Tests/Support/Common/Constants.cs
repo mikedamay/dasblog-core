@@ -11,7 +11,7 @@ namespace DasBlog.Tests.Support.Common
 		// this is the amount of time the script will linger so that
 		// the host process can gather any output
 		public const string DasBlogTestScriptExitTimeout = "DAS_BLOG_TEST_SCRIPT_EXIT_TIMEOUT";
-		public const int DefaultScriptExitTimeout = 100;
+		public const int DefaultScriptExitTimeout = 1000;
 		public const string ScriptsRelativePath = "source/DasBlog.Tests/Support/Scripts/";
 		public const string VanillaTestData = "source/DasBlog.Tests/Resources/Environments/Vanilla";
 		public const string TestDataDirectory = "source/DasBlog.Tests/Resources/Environments";

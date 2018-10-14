@@ -17,6 +17,7 @@ rem # e.g. "cmd /c ./DetectChanges.cmd 100 c:/projects/dasblog-core/source/DasBl
 if [%1] == [] goto error_exit
 if [%2] == [] goto error_exit
 git status --short --untracked-files -- %2
+echo output_complete
 rem # results will look something like the following if the working directory varies from the repo
 rem # M ../../../Resources/Resources.csproj
 rem # M ../../../Resources/Utils/LockFile.cs
@@ -30,6 +31,7 @@ ping 192.168.0.255 -n 1 -w %1 >NUL
 exit %exitcode%
 :error_exit
 echo working directory path was blank (or the script exit timeout was omitted)1>&2
+echo errors_complete 1>&2
 rem # timeout /t 1
 ping 192.168.0.255 -n 1 -w %1 >NUL
 exit 1

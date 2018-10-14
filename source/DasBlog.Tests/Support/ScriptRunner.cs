@@ -73,12 +73,23 @@ namespace DasBlog.Tests.Support
 				logger.LogDebug($"exit code: {exitCode}");
 
 				ThrowExceptionForBadExitCode(exitCode, scriptPathAndFileName, scriptTimeout, psi);
-				return (exitCode, output.ToArray(), errs.ToArray());
+				ThrowExceptionForIncompleteOutput(output, errs, scriptName);
+				return (exitCode, output.Where(o => o != null && !o.Contains("output_complete")).ToArray(), errs.Where(e => e != null && !e.Contains("errors_complete")).ToArray());
 			}
 //			finally
 			catch (Exception e)
 			{
 				throw new Exception(e.Message, e);
+			}
+		}
+
+		private void ThrowExceptionForIncompleteOutput(List<string> output, List<string> errs, string scriptName)
+		{
+			output.Where(o => o != null).ToList().ForEach(o => logger.LogDebug(o));
+			errs.Where(o => o != null).ToList().ForEach(o => logger.LogDebug(o));
+			if (!(output.Contains("output_complete") || errs.Contains("errors_complete")))
+			{
+				throw new Exception($"incomplete output from script {scriptName}");
 			}
 		}
 

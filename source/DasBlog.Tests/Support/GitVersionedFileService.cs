@@ -179,8 +179,18 @@ namespace DasBlog.Tests.Support
 			{
 				throw new Exception($"Was expecting the stash, {stashHash}, to contain the guid {guid}."
 				                    + Environment.NewLine +
-				                    $"Please examine the git log and stash to ensure all is well.");
+				                    "Please examine the git log and stash to ensure all is well."
+				                    + Environment.NewLine +
+				                    Environment.NewLine +
+				                    $"Errors:{Environment.NewLine}{FormatForDisplay(errors)}{Environment.NewLine}Outputs:{FormatForDisplay(outputs)}"
+				                    );
 			}
+		}
+
+		private string FormatForDisplay(string[] lines)
+		{
+			string message = string.Join(Environment.NewLine, lines.Where(e => !string.IsNullOrWhiteSpace(e)).DefaultIfEmpty(string.Empty));
+			return message;
 		}
 
 		private string GetGuidFromStash(string[] outputs)

@@ -9,10 +9,12 @@ rem # $2 = the hash of a stash
 if [%1] == [] goto error_exit
 if [%2] == [] goto error_exit
 git log --format=%%B -n 1 %2
+echo output_complete
 set exitcode=%errorlevel%
 ping 192.168.0.255 -n 1 -w %1 >NUL
 exit %exitcode%
 :error_exit
 echo one or more command line arguments are missing 1>&2
+echo errors_complete 1>&2
 ping 192.168.0.255 -n 1 -w %1 >NUL
 exit 1
