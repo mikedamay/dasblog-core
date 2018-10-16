@@ -60,21 +60,11 @@ namespace DasBlog.Tests.Support
 				psi.RedirectStandardError = true;
 				logger.LogDebug($"script timeout: {scriptTimeout}, script exit timeout {scriptExitTimeout} for {scriptPathAndFileName}");
 
-				int exitCode = int.MaxValue;
-				using (var ps = Process.Start(psi))
-				{
-					ps.OutputDataReceived += (sender, e) => output.Add(e.Data);
-					ps.ErrorDataReceived += (sender, e) => errs.Add(e.Data);
-					ps.BeginOutputReadLine();
-					ps.BeginErrorReadLine();
-					var result = ps.WaitForExit(scriptTimeout);
-					exitCode = result ? ps.ExitCode : int.MaxValue - 1;
-				}
-				logger.LogDebug($"exit code: {exitCode}");
+				var exitCode = RunProcess(psi, output, errs);
 
 				ThrowExceptionForBadExitCode(exitCode, scriptPathAndFileName, scriptTimeout, psi);
 				ThrowExceptionForIncompleteOutput(output, errs, scriptName);
-				return (exitCode, output.Where(o => o != null && !o.Contains("output_complete")).ToArray(), errs.Where(e => e != null && !e.Contains("errors_complete")).ToArray());
+				return (exitCode, output.Where(o => o != null && !o.Contains("dasmeta")).ToArray(), errs.Where(e => e != null && !e.Contains("dasmeta")).ToArray());
 			}
 //			finally
 			catch (Exception e)
@@ -83,11 +73,37 @@ namespace DasBlog.Tests.Support
 			}
 		}
 
+		/// <summary>
+		/// start the process and collect std output until it dies or the timeout is run down
+		/// </summary>
+		/// <param name="psi">RedirectStandardOutput/Error set to true, Shell
+		///   Execute=false, fully loaded arglist</param>
+		/// <param name="output">each line of output (terminated with a null line) or empty list</param>
+		/// <param name="errs">each line of output (terminated with a null line) or empty list</param>
+		/// <returns>exit code from script (which is whatever the last executed step exits with
+		///   or 1 if the args are wrong) or int.MaxValue - 1 to indicate timeout</returns>
+		private int RunProcess(ProcessStartInfo psi, List<string> output, List<string> errs)
+		{
+			int exitCode = int.MaxValue;
+			using (var ps = Process.Start(psi))
+			{
+				ps.OutputDataReceived += (sender, e) => output.Add(e.Data);
+				ps.ErrorDataReceived += (sender, e) => errs.Add(e.Data);
+				ps.BeginOutputReadLine();
+				ps.BeginErrorReadLine();
+				var result = ps.WaitForExit(scriptTimeout);
+				exitCode = result ? ps.ExitCode : int.MaxValue - 1;
+			}
+
+			logger.LogDebug($"exit code: {exitCode}");
+			return exitCode;
+		}
+
 		private void ThrowExceptionForIncompleteOutput(List<string> output, List<string> errs, string scriptName)
 		{
 			output.Where(o => o != null).ToList().ForEach(o => logger.LogDebug(o));
 			errs.Where(o => o != null).ToList().ForEach(o => logger.LogDebug(o));
-			if (!(output.Contains("output_complete") || errs.Contains("errors_complete")))
+			if (!(output.Contains("dasmeta_output_complete") || errs.Contains("dasmeta_errors_complete")))
 			{
 				throw new Exception($"incomplete output from script {scriptName}");
 			}

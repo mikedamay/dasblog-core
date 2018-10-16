@@ -14,10 +14,13 @@ rem #
 rem # usage: cmd /c ./DetectChanges.sh <script exit timeout> <root of test resources>
 rem # returns: non-empty output means that the working directory is different to the repo. 
 rem # e.g. "cmd /c ./DetectChanges.cmd 100 c:/projects/dasblog-core/source/DasBlog.Tests/Resources/Environments/Vanilla"
+echo %time% %0 %1 %2 >>output.txt
+echo dasmeta_output_start
+echo dasmeta_errors_start 1>&2
 if [%1] == [] goto error_exit
 if [%2] == [] goto error_exit
 git status --short --untracked-files -- %2
-echo output_complete
+echo dasmeta_output_complete
 rem # results will look something like the following if the working directory varies from the repo
 rem # M ../../../Resources/Resources.csproj
 rem # M ../../../Resources/Utils/LockFile.cs
@@ -31,7 +34,7 @@ ping 192.168.0.255 -n 1 -w %1 >NUL
 exit %exitcode%
 :error_exit
 echo working directory path was blank (or the script exit timeout was omitted)1>&2
-echo errors_complete 1>&2
+echo dasmeta_errors_complete 1>&2
 rem # timeout /t 1
 ping 192.168.0.255 -n 1 -w %1 >NUL
 exit 1

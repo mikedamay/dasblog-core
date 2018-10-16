@@ -6,15 +6,18 @@ rem #
 rem # prints out the message associated with the stash so that the caller can verify it.
 rem # $1 = script exit linger time
 rem # $2 = the hash of a stash
+echo %time% %0 %1 %2 >>output.txt
+echo dasmeta_output_start
+echo dasmeta_errors_start 1>&2
 if [%1] == [] goto error_exit
 if [%2] == [] goto error_exit
 git log --format=%%B -n 1 %2
-echo output_complete
+echo dasmeta_output_complete
 set exitcode=%errorlevel%
 ping 192.168.0.255 -n 1 -w %1 >NUL
 exit %exitcode%
 :error_exit
 echo one or more command line arguments are missing 1>&2
-echo errors_complete 1>&2
+echo dasmeta_errors_complete 1>&2
 ping 192.168.0.255 -n 1 -w %1 >NUL
 exit 1
