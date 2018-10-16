@@ -60,7 +60,7 @@ namespace DasBlog.Tests.Support
 				psi.RedirectStandardError = true;
 				logger.LogDebug($"script timeout: {scriptTimeout}, script exit timeout {scriptExitTimeout} for {scriptPathAndFileName}");
 
-				var exitCode = RunProcess(psi, output, errs);
+				var exitCode = RunCmdProcess(psi, output, errs);
 
 				ThrowExceptionForBadExitCode(exitCode, scriptPathAndFileName, scriptTimeout, psi);
 				ThrowExceptionForIncompleteOutput(output, errs, scriptName);
@@ -77,12 +77,12 @@ namespace DasBlog.Tests.Support
 		/// start the process and collect std output until it dies or the timeout is run down
 		/// </summary>
 		/// <param name="psi">RedirectStandardOutput/Error set to true, Shell
-		///   Execute=false, fully loaded arglist</param>
+		///   Execute=false, fully loaded arglist including /K to keep the command shell open</param>
 		/// <param name="output">each line of output (terminated with a null line) or empty list</param>
 		/// <param name="errs">each line of output (terminated with a null line) or empty list</param>
 		/// <returns>exit code from script (which is whatever the last executed step exits with
 		///   or 1 if the args are wrong) or int.MaxValue - 1 to indicate timeout</returns>
-		private int RunProcess(ProcessStartInfo psi, List<string> output, List<string> errs)
+		private int RunCmdProcess(ProcessStartInfo psi, List<string> output, List<string> errs)
 		{
 			int exitCode = int.MaxValue;
 			using (var ps = Process.Start(psi))
