@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using DasBlog.Tests.Support.Common;
 using DasBlog.Tests.Support.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -47,6 +49,8 @@ namespace DasBlog.Tests.Support
 				var cmdexe = GetCmdExe();
 				var output = new List<string>();
 				var errs = new List<string>();
+				var sw = new Stopwatch();
+				sw.Start();
 				
 				ProcessStartInfo psi = new ProcessStartInfo(cmdexe);
 				var scriptPathAndFileName = Path.Combine(scriptDirectory, scriptName);
@@ -58,10 +62,11 @@ namespace DasBlog.Tests.Support
 					}.Concat(arguments).ToArray());
 				psi.RedirectStandardOutput = true;
 				psi.RedirectStandardError = true;
-				logger.LogDebug($"script timeout: {scriptTimeout}, script exit timeout {scriptExitTimeout} for {scriptPathAndFileName}");
+				logger.LogDebug($"script timeout: {scriptTimeout}, script exit delay {scriptExitTimeout}ms for {scriptPathAndFileName}");
 
 				var exitCode = RunCmdProcess(psi, output, errs);
-
+				logger.LogDebug($"elapsed time {sw.ElapsedMilliseconds} on thread {Thread.CurrentThread.ManagedThreadId}");
+				
 				ThrowExceptionForBadExitCode(exitCode, scriptPathAndFileName, scriptTimeout, psi);
 				ThrowExceptionForIncompleteOutput(output, errs, scriptName);
 				return (exitCode, output.Where(o => o != null && !o.Contains("dasmeta")).ToArray(), errs.Where(e => e != null && !e.Contains("dasmeta")).ToArray());
@@ -91,6 +96,120 @@ namespace DasBlog.Tests.Support
 				ps.ErrorDataReceived += (sender, e) => errs.Add(e.Data);
 				ps.BeginOutputReadLine();
 				ps.BeginErrorReadLine();
+				var result = ps.WaitForExit(scriptTimeout);
+				exitCode = result ? ps.ExitCode : int.MaxValue - 1;
+			}
+
+			logger.LogDebug($"exit code: {exitCode}");
+			return exitCode;
+		}
+
+		private int RunCmdProcess_Works(ProcessStartInfo psi, List<string> output, List<string> errs)
+		{
+			int exitCode = int.MaxValue;
+			Process ps;
+			using (ps = Process.Start(psi))
+			{
+				string s;
+				do
+				{
+					s = ps.StandardOutput.ReadLine();
+					if (s != null)
+					{
+						output.Add(s);
+					}
+				} while (s != null);
+
+				var result = ps.WaitForExit(scriptTimeout);
+				exitCode = result ? ps.ExitCode : int.MaxValue - 1;
+			}
+			logger.LogDebug($"exit code: {exitCode}");
+			return exitCode;
+		}
+
+		private int RunCmdProcess_Old(ProcessStartInfo psi, List<string> output, List<string> errs)
+		{
+			int exitCode = int.MaxValue;
+			Process ps;
+			using (ps = Process.Start(psi))
+			{
+				string s;
+				do
+				{
+					s = ps.StandardOutput.ReadLine();
+					if (s != null)
+					{
+						output.Add(s);
+					}
+				} while (s != null);
+				var result = ps.WaitForExit(scriptTimeout);
+				exitCode = result ? ps.ExitCode : int.MaxValue - 1;
+			}
+			logger.LogDebug($"exit code: {exitCode}");
+			return exitCode;
+		}
+		private int RunCmdProcess_latest(ProcessStartInfo psi, List<string> output, List<string> errs)
+		{
+			int exitCode = int.MaxValue;
+			Process ps;
+			bool readStdOut = true;
+			bool readStdErr = true;
+			bool stdOutFinished = false, stdErrFinished = false;
+			Task<string> stdOutTask = null, stdErrTask = null;
+			int outputTaskId = 0, errorsTaskId = 0;
+			
+			using (ps = Process.Start(psi))
+			{
+				string str;
+				do
+				{
+					if (readStdOut)
+					{
+						stdOutTask = ps.StandardOutput.ReadLineAsync();
+						outputTaskId = stdOutTask.Id;
+						readStdOut = false;
+					}
+
+					if (readStdErr)
+					{
+						stdErrTask = ps.StandardError.ReadLineAsync();
+						errorsTaskId = stdErrTask.Id;
+						readStdErr = false;
+					}
+					if (stdOutTask.Id == stdErrTask.Id)
+					{
+						throw new Exception($"ScriptRunner: test aborted as task ids are not unique - {stdOutTask.Id}");
+					}
+					var tasks = Task.WhenAny(new[] {stdOutTask, stdErrTask});
+					if (tasks.IsCanceled || tasks.IsFaulted)
+					{
+						throw new Exception("ScriptRunner: test aborted as TaskWhenAny() failed");
+					}
+					var completedTask = tasks.Result;
+					if (!completedTask.IsCompletedSuccessfully)
+					{
+						throw new Exception($"ScriptRunner: test aborted as TaskWhenAny() failed - for task {completedTask.Id}");
+					}
+					str = completedTask.Result;
+					if (completedTask.Id == outputTaskId)
+					{
+						output.Add(str);
+						readStdOut = true;
+						if (str == null)
+						{
+							stdOutFinished = true;
+						}
+					}
+					else if (completedTask.Id == errorsTaskId)
+					{
+						errs.Add(str);
+						readStdErr = true;
+						if (str == null)
+						{
+							stdErrFinished = true;
+						}
+					}
+				} while (!stdOutFinished && !stdErrFinished);
 				var result = ps.WaitForExit(scriptTimeout);
 				exitCode = result ? ps.ExitCode : int.MaxValue - 1;
 			}
