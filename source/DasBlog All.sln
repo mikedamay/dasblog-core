@@ -55,9 +55,6 @@ Global
 		{C439145F-28BF-4451-98CD-7FC404681426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C439145F-28BF-4451-98CD-7FC404681426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C439145F-28BF-4451-98CD-7FC404681426}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 		{03F7D2D4-3FE9-467E-A9BE-E9A6322DFBF2}.Debug - All|Any CPU.ActiveCfg = Debug|Any CPU
 		{03F7D2D4-3FE9-467E-A9BE-E9A6322DFBF2}.Debug - All|Any CPU.Build.0 = Debug|Any CPU
 		{03F7D2D4-3FE9-467E-A9BE-E9A6322DFBF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -70,18 +67,12 @@ Global
 		{2AAA4696-6822-4389-AD50-37FECA283849}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AAA4696-6822-4389-AD50-37FECA283849}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AAA4696-6822-4389-AD50-37FECA283849}.Release|Any CPU.Build.0 = Release|Any CPU
-=======
->>>>>>> origin/nfr/xplatform
 		{EF906D40-9BDC-4A41-94C7-33FEC3A1AFA5}.Debug - All|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF906D40-9BDC-4A41-94C7-33FEC3A1AFA5}.Debug - All|Any CPU.Build.0 = Debug|Any CPU
 		{EF906D40-9BDC-4A41-94C7-33FEC3A1AFA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF906D40-9BDC-4A41-94C7-33FEC3A1AFA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF906D40-9BDC-4A41-94C7-33FEC3A1AFA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF906D40-9BDC-4A41-94C7-33FEC3A1AFA5}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
-=======
->>>>>>> faked refs to XmlRpc and killed of XmlRpcManager bulds but have not run
->>>>>>> origin/nfr/xplatform
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
