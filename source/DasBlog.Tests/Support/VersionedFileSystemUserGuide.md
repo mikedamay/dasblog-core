@@ -55,10 +55,12 @@ more selective you can rely on these automatically created stashes having a desc
 ```
  On test/test-infrastructure-docs: functional-test environment state 932924a2-c930-4d7e-ad5a-fd5a9b149aa5
 ```
-"functional test environment state" will always be part of the description.  I'm not entirely sure what you can
+"functional-test environment state" followed by an unique GUID
+will always be part of the description.  I'm not entirely sure what you can
 do with this information but it may be useful if you are in trouble.
 
 ##### GIT Version
 The earliest version of Git supported is 2.15.
 
-
+##### See also
+- [Versioned File Service Implementation](Interfaces/IVersionedFileService.cs)
