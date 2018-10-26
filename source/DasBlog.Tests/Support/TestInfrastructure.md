@@ -3,5 +3,5 @@ The only support routines that would really benefit from some explanation are th
 related to the Versioned File System (aka the sand box).
 
 This explanation is covered under
-- [Versioned File System User Guide](VersionedFileSystemUserGuide.md)
-- [Versioned File System Implementation](VersionedFileServiceImplementation.md)
+- [Versioned File Service User Guide](VersionedFileServiceUserGuide.md)
+- [Versioned File Service Implementation](VersionedFileServiceImplementation.md)
