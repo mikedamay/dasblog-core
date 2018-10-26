@@ -1,5 +1,5 @@
 #### Component Test Infrastructure
-Component test infrastructure currently comprises the the [ComponentTestPlatfrom](ComponentTestPlatform.cs), a thin
+Component test infrastructure currently comprises the the [ComponentTestPlatform](../FunctionalTestDataInfrastructure.md), a thin
 layer over [TestSupportPlatform](../Common/TestSupportPlatform.cs) and [test data processor](../Common/ITestDataProcessor.cs).
 
 The component test platform is responsible for creating the test data processor and the various components of the SUT (

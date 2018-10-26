@@ -37,7 +37,7 @@ The following diagram shows how the functional tests are positioned within the o
 addition to the artifacts briefly discussed in the paragraphs that follow the diagram you will see there
 are projects for Support and Automation which provide helper classes and routines to the test projects.  There
 is also the Environments hierarchy which is a versioned file system in which the user can select which sand boxed
-environment to sue in each test.
+environment to use in each test.
 
 ![Schematic](TestFileHierarchy.png)
 
