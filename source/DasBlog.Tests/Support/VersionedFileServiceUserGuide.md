@@ -1,4 +1,4 @@
-#### Versioned File System User Guide
+#### Versioned File Service User Guide
 
 ##### Usage
 See [Anatomy of A Component Test](../FunctionalTests/ComponentTests/ComponentTests.md#anatomy-of-a-component-test)
