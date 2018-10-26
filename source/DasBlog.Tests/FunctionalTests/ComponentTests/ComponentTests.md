@@ -1,4 +1,4 @@
-#### Functional Tests
+#### Component Tests
 
 ##### Usage
 change directory to the project directory (containing .git) usually called dasblog-core and do
@@ -12,6 +12,7 @@ need some sort of tool to format them as the results are fairly unreadable.
 DasBlog.Tests/FunctionalTests/ComponentTests/appsettings.json can be used to set log levels.  Note that this
 overrides the settings in DasBlog.Tests/FunctionalTests/appsettings.json.
 
+The following code fragment shows a couple of typical component test and a typical test class.
 
 ##### Anatomy of a Component Test
 ```
@@ -66,28 +67,31 @@ namespace DasBlog.Tests.FunctionalTests.ComponentTests	// (1)
 	}
 }
 ```
+The points below refer to the respective lines above annotated with point numbers in parentheses.
+
 1. Namespace name is unimportant but the documentation relies on the file system hierarchy remaining unchanged.  Note
-that `Constants` refers to the test assemblies constants.  Where the web app's constants are included in test files
+that `Constants` in the `using` section refers to the test assembly's constants.  Where the web app's constants are included in test files
 they are aliased as `WebAppConstants`.  Inevitably legacy newtelligence namespaces are referenced but currently we
 avoid ASP.NET dependencies.  This is just code hygiene,  The author has no reason to believe there would be a problem
 introducing such a dependency.
-2. The collection has the effect of preventing classes annotated with it from executing in parallel.  It should be applied
-to any test class which uses the test infrastructure - in particular the versioned file system.  It is not clear to the
+2. The `[Collection]` attribute has the effect of preventing classes annotated with it from executing in parallel.  It should be applied
+to any test class which uses the [test infrastructure](../../Support/TestInfrastructure.md) - in particular the versioned file system.  It is not clear to the
 author what is preventing browser based tests executing in parallel with component tests - perhaps they do.
-3. The component tests need the component test platform to provide the SUT's API via DI
+3. The component tests need the [component test platform](ComponentTestInfrastructure.md) to provide the SUT's API via DI
 and a file system on which to operate.
-4. An implementation of ITestOutputHelper is provided by XUnit is required for use by the XUnitLogger.
+4. An implementation of ITestOutputHelper is provided by XUnit to the test's constructor and is required for use by the XUnitLogger.
 5. Unfortunately it is not possible to acquire an instance of ITestOutputHelper other than in the test constructor.
 Therefore **_we need complete the setup_** of the `ComponentTestPlatform` in particular adding in the log provider.
-6. Fact attribute is standard XUnit.
+6. `[Fact]` attribute is standard XUnit.
 7. A trait is used to identify this a a component test as opposed to browser based or integration.
-8. Use the Unit-of-work/State/Expected-result naming convention for tests.
+8. Use the Unit-of-work/State-under-test/Expected-behaviour naming convention for tests.
 9. A sandbox is created comprising content and configuration files in some pristine state.  There are a number of
-environments to choose from including "Vanilla" and "Empty".
-10. This happens to be a blog manager test.  The blog manager is created here.  Be aware that DataService on which it
-relies does not get unloaded from the process so a step in BlogManager creation is to clear the cache.
+environments to choose from including "Vanilla" and "EmptyContent".  They are located at
+ [source/DasBlog.Tests/Resources/Environments](../../Resources/Environments)
+10. This example happens to be a blog manager test.  The blog manager is created here.  Be aware that DataService on which it
+relies does not get unloaded from the process so a step in BlogManager creation is to clear the data service caches.
 11. Some operation is executed, typically on a service API.
 12. Standard XUnit assertion
-13. There is an instance of the TestDataProcessor class to allow for the SUT's data files to be manipulated before and
+13. There is an instance of the [TestDataProcessor](../Common/ITestDataProcessor.cs) class to allow for the SUT's data files to be manipulated before and
 inspected after tests.
-14. Location where resources allocated in the constructor can be de-allocated.
+14. XUnit's way is to use `IDisposable.Dispose()` to tear down resources allocated in the constructor which nned to be de-allocated.
