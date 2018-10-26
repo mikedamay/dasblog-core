@@ -32,6 +32,15 @@ Functional tests can be run using the dotnet test runner or the VS or Rider test
 
 All tests are run serially.  They suppress XUnit's default parallelism.
 
+###### Context
+The following diagram shows how the functional tests are positioned within the overall solution hierarchy.  In 
+addition to the artifacts briefly discussed in the paragraphs that follow the diagram you will see there
+are projects for Support and Automation which provide helper classes and routines to the test projects.  There
+is also the Environments hierarchy which is a versioned file system in which the user can select which sand boxed
+environment to sue in each test.
+
+![Schematic](TestFileHierarchy.png)
+
 ###### Component Tests
 Component tests exercise specific services or data repositories such as the BlogManager. They are entirely synchronous
 and do not use the browser.
