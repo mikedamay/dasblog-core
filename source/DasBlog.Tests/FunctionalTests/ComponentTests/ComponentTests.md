@@ -7,12 +7,12 @@ dotnet test source/DasBlog.Tests/FunctionalTests --logger trx;LogfileName=compon
 ``` 
 For failing tests the logs will be printed along with the results.  If you need to inspect the logs for passing tests
 the the location  is `source/DasBlog.Tests/FunctioalTests/test_results/component_test_results.xml`.  You will
-need some sort of tool to format them as the results are fairly unreadable.
+need some sort of tool to format them as the results are fairly unreadable in their raw form.
 
-DasBlog.Tests/FunctionalTests/ComponentTests/appsettings.json can be used to set log levels.  Note that this
-overrides the settings in DasBlog.Tests/FunctionalTests/appsettings.json.
+[DasBlog.Tests/FunctionalTests/ComponentTests/appsettings.json](appsettings.json) can be used to set log levels.  Note that this
+overrides the settings in [DasBlog.Tests/FunctionalTests/appsettings.json](../appsettings.json).
 
-The following code fragment shows a couple of typical component test and a typical test class.
+The following code fragment shows a couple of typical component tests in a typical test class.
 
 ##### Anatomy of a Component Test
 ```
@@ -83,7 +83,7 @@ and a file system on which to operate.
 5. Unfortunately it is not possible to acquire an instance of ITestOutputHelper other than in the test constructor.
 Therefore **_we need complete the setup_** of the `ComponentTestPlatform` in particular adding in the log provider.
 6. `[Fact]` attribute is standard XUnit.
-7. A trait is used to identify this a a component test as opposed to browser based or integration.
+7. The "ComponentTest" category trait is used to identify this a a component test as opposed to browser based or integration.
 8. Use the Unit-of-work/State-under-test/Expected-behaviour naming convention for tests.
 9. A sandbox is created comprising content and configuration files in some pristine state.  There are a number of
 environments to choose from including "Vanilla" and "EmptyContent".  They are located at
