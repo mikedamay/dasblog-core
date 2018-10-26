@@ -45,6 +45,7 @@ environment to use in each test.
 Component tests exercise specific services or data repositories such as the BlogManager. They are entirely synchronous
 and do not use the browser.
 
+See [ComponentTests](ComponentTests/ComponentTests.md)
 
 ###### Browser Based Tests
 Browser based tests use Selenium to drive the browser and run the dasblog-core web app as a server albeit on
@@ -71,3 +72,6 @@ problem.
 In comparison to unit tests, functional tests take a long time to run, need a greater learning investment and are less
 robust.  It is the author's contention that they are essential in a project where the absence of much business logic
 means that there is a reduced pay off from unit testing.
+
+##### See Also
+- [Functional Test Infrastructure](FunctionalTestDataInfrastructure.md)
