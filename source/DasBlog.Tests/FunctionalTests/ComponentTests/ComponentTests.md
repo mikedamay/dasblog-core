@@ -14,6 +14,8 @@ overrides the settings in [DasBlog.Tests/FunctionalTests/appsettings.json](../ap
 
 The following code fragment shows a couple of typical component tests in a typical test class.
 
+
+
 ##### Anatomy of a Component Test
 ```
 using System;
