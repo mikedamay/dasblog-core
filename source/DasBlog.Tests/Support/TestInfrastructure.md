@@ -4,4 +4,4 @@ related to the Versioned File System (aka the sand box).
 
 This explanation is covered under
 - [Versioned File System User Guide](VersionedFileSystemUserGuide.md)
-- [Versioned File System Implementation](VersionedFileSystemImplementation.md)
+- [Versioned File System Implementation](VersionedFileServiceImplementation.md)
