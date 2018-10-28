@@ -119,6 +119,14 @@ All tests run against the same server process.
 ##### Results
 The logs show either that all test steps were executed successfuly (Passed == True)
 
+```
+DasBlog.Tests.Support.Publisher [0] Test Results
+DasBlog.Tests.Support.Publisher [0] Test Passed Failed Step
+DasBlog.Tests.Support.Publisher [0]            ============================== ===== =====================================================
+DasBlog.Tests.Support.Publisher [0]              Goto_HomePage_DisplaysNavBar True 
+DasBlog.Tests.Support.Publisher [0]
+```
+
 or that the test step which failed.  Note that the XUnit assertion does not include
 the reason for failure - you must consult the logs for that.
 
@@ -134,7 +142,57 @@ DasBlog.Tests.Support.Publisher [0]                    LogIn_WithBlankPassword_S
 DasBlog.Tests.Support.Publisher [0]
 ```
 
+##### Logs
+"DasBlog.Web says" indicates log output from the web server
 
+There is no output from the geckodriver.exe (not sure why not)
+
+Sample Log
+```
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Request starting HTTP/1.1 GEThttp://localhost:5000/page 
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Route matched with {action = "Page",controller = "Home"}. Executing action DasBlog.Web.Controllers.HomeController.Page (DasBlog.Web)
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Executing action methodDasBlog.Web.Controllers.HomeController.Page (DasBlog.Web) - Validation state: Valid
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: dbug: DasBlog.Managers.BlogManager[0]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: pass £££oldExpression = '() =&gt;value(DasBlog.Managers.BlogManager).dasBlogSettings.GetContentLookAhead()' oldResult = '29/10/201811:53:14', newExpression = '() =&gt;GetContentLookAhead(value(DasBlog.Managers.BlogManager).opts.ContentLookaheadDays)' newResult ='29/10/2018 11:53:14'[[[
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: dbug: DasBlog.Managers.BlogManager[0]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: pass £££oldExpression = '() =&gt;value(DasBlog.Managers.BlogManager).dasBlogSettings.GetConfiguredTimeZone()' oldResult = 'UTC',newExpression = '() =&gt;GetConfiguredTimeZone(value(DasBlog.Managers.BlogManager).opts.AdjustDisplayTimeZone,value(DasBlog.Managers.BlogManager).opts.DisplayTimeZoneIndex)' newResult = 'UTC'[[[
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: dbug: DasBlog.Managers.BlogManager[0]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: pass £££oldExpression = '() =&gt;value(DasBlog.Managers.BlogManager).dasBlogSettings.SiteConfiguration.FrontPageDayCount' oldResult ='5', newExpression = '() =&gt; value(DasBlog.Managers.BlogManager).opts.FrontPageEntryCount'newResult = '5'[[[
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: dbug: DasBlog.Managers.BlogManager[0]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: pass £££oldExpression = '() =&gt;value(DasBlog.Managers.BlogManager).dasBlogSettings.SiteConfiguration.FrontPageEntryCount' oldResult= '5', newExpression = '() =&gt; value(DasBlog.Managers.BlogManager).opts.FrontPageEntryCount'newResult = '5'[[[
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: dbug:DasBlog.Web.Controllers.HomeController[0]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: In Index - 1 post found
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Executed action methodDasBlog.Web.Controllers.HomeController.Page (DasBlog.Web), returned resultMicrosoft.AspNetCore.Mvc.ViewResult in 7.6641ms.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Executing ViewResult, running view Page.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Authorization was successful.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Authorization was successful.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Authorization was successful.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Authorization was successful.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Authorization was successful.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Authorization was successful.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Executed ViewResult - view Page executedin 2.7012ms.
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Executed actionDasBlog.Web.Controllers.HomeController.Page (DasBlog.Web) in 10.6077ms
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: info:Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+DasBlog.Tests.Support.WebServerRunner [0] DasBlog.Web says: Request finished in 14.8671ms 200text/html; charset=utf-8
+DasBlog.Tests.Support.Publisher [0] Test Results
+DasBlog.Tests.Support.Publisher [0] Test Passed Failed Step
+DasBlog.Tests.Support.Publisher [0] ============================== ==========================================================
+DasBlog.Tests.Support.Publisher [0] Goto_HomePage_DisplaysNavBar True 
+DasBlog.Tests.Support.Publisher [0]
+```
 
 ##### Detail
 Automated browser based tests exercise the web app end-to-end just as interactive
