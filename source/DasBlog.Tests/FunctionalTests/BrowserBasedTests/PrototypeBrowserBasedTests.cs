@@ -106,10 +106,12 @@ namespace DasBlog.Tests.FunctionalTests.BrowserBasedTests
 				{
 					new ActionStep(() => platform.Pages.LoginPage.Goto()),
 					new VerificationStep(() => platform.Pages.LoginPage.IsDisplayed()),
+					new VerificationStep(() => platform.Pages.LoginPage.PasswordTextBox != null),
+					new ActionStep(() => platform.Pages.LoginPage.PasswordTextBox.SetText(string.Empty)),
 					new VerificationStep(() => platform.Pages.LoginPage.LoginButton != null),
 					new ActionStep(() => platform.Pages.LoginPage.LoginButton.Click()),
 					new VerificationStep(() =>
-						platform.Pages.LoginPage.PasswordValidation.Text.ToLower().Contains("the typo password field is required")),
+						platform.Pages.LoginPage.PasswordValidation.Text.ToLower().Contains("the password field is required")),
 					new VerificationStep(() => platform.Pages.LoginPage.IsDisplayed())
 				};
 				var results = new TestResults();
@@ -135,8 +137,6 @@ namespace DasBlog.Tests.FunctionalTests.BrowserBasedTests
 			{
 				List<TestStep> testSteps = new List<TestStep>
 				{
-					new ActionStep(() => platform.Pages.HomePage.Goto()),
-					new VerificationStep(() => platform.Pages.NavBar.IsDisplayed()),
 					new ActionStep(() => platform.Pages.LoginPage.Goto()),
 					new VerificationStep(() => platform.Pages.LoginPage.IsDisplayed()),
 					new VerificationStep(() => platform.Pages.LoginPage.LoginButton != null),
