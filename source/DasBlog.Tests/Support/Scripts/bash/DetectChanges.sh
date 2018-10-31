@@ -8,21 +8,24 @@
 #
 # usage: cmd /c ./DetectChanges.sh <root of test resources>
 # returns: non-empty output means that the working directory is different to the repo. 
-# e.g. "bash -c "./DetectChanges.cmd c:/projects/dasblog-core/source/DasBlog.Tests/Resources/Environments/Vanilla"
+# e.g. bash -c "/Users/mikedamay/projects/dasblog-core/source/DasBlog.Tests/Support/Scripts/bash/DetectChanges.sh /Users/mikedamay/projects/dasblog-core/source/DasBlog.Tests/Resources/Environments"
+# results will look something like the following if the working directory varies from the repo
+# M ../../../Resources/Resources.csproj
+# M ../../../Resources/Utils/LockFile.cs
+# ?? ../../../Resources/aaa
+#
+# nothing is output if the working directory is clean
+#
 DT=`date`
 echo dasmeta ${DT} $0 $@
 echo dasmeta_output_start
 echo dasmeta_errors_start
 if [[ $# -eq 0 ]]
 then
-    echo "working directory path was blank (or the script exit timeout was omitted)"
+    echo "working directory path was blank)"
     echo dasmeta_errors_complete
     exit 1
 fi
-git status --short --untracked-files -- $1 2>1
-# results will look something like the following if the working directory varies from the repo
-# M ../../../Resources/Resources.csproj
-# M ../../../Resources/Utils/LockFile.cs
-# ?? ../../../Resources/aaa
+git status --short --untracked-files -- $1
 echo dasmeta_output_complete errorlevel==$?
 exit $?

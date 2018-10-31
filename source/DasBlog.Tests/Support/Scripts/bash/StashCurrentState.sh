@@ -3,14 +3,14 @@
 #
 # stashes the content of the path (typically the root of test data) and thereby resets the working directory
 # to the last commit.  
-# It then drops stash@{0} which will output the hash of the stash to stdoutput where it is grabbed and logged
+# It then drops stash@{0} which will output the hash of the stash to stdout where it is grabbed and logged
 #
 # Would like to use 'git create' but it does not take a path spec.  So Heath Robinson measures are required...
 #
 # $1 = root of test resources
 # $2 = string to identify the stash
-# usage bash -c "StashCurrentState.sh <path-spec: root of test resources> <unique-id> <display-name>"
-# e.g. bash -c "StashCurrentState.sh C:\alt/projs/dasblog-core\source/eDasBlog.Tests/Resources/Environments"
+# usage bash -c "StashCurrentState.sh <path-spec: root of test resources> <caller-generated-guid>"
+# e.g. bash -c "/Users/mikedamay/projects/dasblog-core/source/DasBlog.Tests/Support/Scripts/bash/StashCurrentState.sh /Users/mikedamay/projects/dasblog-core/source/DasBlog.Tests/Resources/Environments xxx-yyyy"
 
 # *********** WARNING ***************
 # before this script is executed DetectChanges.sh should be executed to ensure that there is something
@@ -27,12 +27,16 @@ then
     echo dasmeta_errors_complete
     exit 1
 fi
-git stash push -m "functional-test environment state $2" --all -- $1 2>1
-if [[ $? -ne 0 ]]
+if [[ $# -eq 1 ]]
 then
-    exit $?
+    echo one or more command line arguments are missing
+    echo dasmeta_errors_complete
+    exit 1
 fi
+git stash push -m "functional-test environment state $2" --all -- $1
 # "drop" will cause the hash of the stash to be echoed to stdout where the caller can grab it and tell user
-git stash drop stash@\{0\} 2>&1
+# as stated in the WARNING above the caller must protect the script from running against
+# stashes where the last stash was not from the test suite
+git stash drop stash@\{0\}
 echo dasmeta_output_complete errorlevel==$?
 exit $?
